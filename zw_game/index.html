@@ -19,9 +19,9 @@
 <body>
 <canvas id="c" width="1280" height="720"></canvas>
 <div id="rot">Поверни телефон горизонтально ↻</div>
-<div id="errbox" style="position:fixed;left:0;top:0;right:0;z-index:99;background:#300;color:#fff;font:12px monospace;padding:4px;display:none;white-space:pre-wrap;max-height:40vh;overflow:auto"><!-- --></div>
+<div id="errbox" style="position:fixed;left:0;top:0;right:0;z-index:99;background:#300;color:#fff;font:12px monospace;padding:4px;display:none;white-space:pre-wrap;max-height:40vh;overflow:auto"></div>
 <script>
-window.addEventListener('error',function(e){var b=document.getElementById('errbox');if(!b)return;b.style.display='block';b.textContent+=(e.filename||'').split('/').pop()+':'+e.lineno+' '+e.message+'\n';});
+window.addEventListener('error',function(e){var b=document.getElementById('errbox');if(b){b.style.display='block';b.textContent+=(e.filename||'').split('/').pop()+':'+e.lineno+' '+e.message+'\n';}});
 window.addEventListener('unhandledrejection',function(e){var b=document.getElementById('errbox');if(b){b.style.display='block';b.textContent+='promise: '+(e.reason&&e.reason.message||e.reason)+'\n';}});
 </script>
 <script src="js/util.js"></script>
@@ -45,147 +45,10 @@ window.addEventListener('unhandledrejection',function(e){var b=document.getEleme
 <script src="js/input.js"></script>
 <script src="js/ui.js"></script>
 <script src="js/game.js"></script>
+<script src="js/dev-menu.js"></script>
 <script>
-// данные 3D-героя грузятся после того, как игра уже показала меню (так большой файл не может оставить экран чёрным)
+// Load the large 3D hero data after the game UI has started rendering.
 window.addEventListener('load',function(){setTimeout(function(){var e=document.createElement('script');e.src='js/hero_data.js';e.onerror=function(){window.HERO_FAIL=1};document.body.appendChild(e);},50);});
-
-(function () {
-  const qs = new URLSearchParams(location.search || '');
-  const none = v => v == null || v === '';
-  const pick = (v, def) => { const n = Number.parseInt(v, 10); return Number.isFinite(n) ? n : def; };
-
-  function ensureSave() {
-    if (!window.Save) { setTimeout(ensureSave, 100); return false; }
-    if (!Save.d) Save.load();
-    return true;
-  }
-
-  function applyUrlBoosts() {
-    if (!ensureSave()) return;
-    const d = Save.d;
-    const level = pick(qs.get('lvl'), null);
-    const gold = pick(qs.get('gold'), null);
-    const gear = pick(qs.get('gear'), null);
-    const all = qs.get('all') === '1' || qs.get('dev') === '1' || qs.get('menu') === '1';
-
-    if (level != null) d.wins = Math.max(0, (level - 1) * 3);
-    if (gold != null) d.gold = gold;
-    if (qs.get('hunter') === '1') d.hunter = 1;
-    if (qs.get('scarlett') === '1') d.scarlett = 1;
-    if (qs.get('hunter') === '0') d.hunter = 0;
-    if (qs.get('scarlett') === '0') d.scarlett = 0;
-    if (gear != null) {
-      const g = Math.max(1, Math.min(18, gear));
-      for (const id in (WEAPONS || {})) { const it = WEAPONS[id]; if (!it || !it.lvl) continue; if (!d.owned.w.includes(id)) d.owned.w.push(id); }
-      for (const id in (ARMORS || {})) { const it = ARMORS[id]; if (!it || !it.lvl) continue; if (!d.owned.a.includes(id)) d.owned.a.push(id); }
-      for (const id in (MAGICS || {})) { const it = MAGICS[id]; if (!it || !it.lvl) continue; if (!d.owned.m.includes(id)) d.owned.m.push(id); }
-      d.eq.w = d.owned.w[0] || 'katana';
-      d.eq.a = d.owned.a[0] || 'none';
-      d.eq.m = d.owned.m[0] || 'none';
-      if (typeof Gear !== 'undefined') {
-        for (const key in d.owned) {
-          const list = d.owned[key];
-          if (Array.isArray(list)) {
-            for (const id of list) {
-              const k = key === 'w' ? 'w' : key === 'a' ? 'a' : 'm';
-              if (k !== 'm') d.up[k + ':' + id] = g;
-            }
-          }
-        }
-      }
-    }
-
-    if (all) {
-      for (const k of ['w', 'a', 'm']) {
-        const db = Items && Items.dbs ? Items.dbs[k] : (k === 'w' ? WEAPONS : k === 'a' ? ARMORS : MAGICS);
-        for (const id in (db || {})) if (!d.owned[k].includes(id)) d.owned[k].push(id);
-      }
-      d.hunter = 1; d.scarlett = 1;
-      d.gold = 999999;
-      d.wins = Math.max(d.wins, 99 * 3);
-      if (typeof Loadout !== 'undefined') Loadout.fix();
-    }
-
-    if (typeof Loadout !== 'undefined') Loadout.fix();
-    if (typeof Save.put === 'function') Save.put();
-  }
-
-  function setBossState(name, val) {
-    if (!ensureSave()) return;
-    Save.d[name] = val ? 1 : 0;
-    if (name === 'hunter') Save.d.hunter = 1;
-    if (name === 'scarlett') Save.d.scarlett = 1;
-    if (typeof Save.put === 'function') Save.put();
-  }
-
-  function unlockEverything() {
-    if (!ensureSave()) return;
-    const d = Save.d;
-    for (const k of ['w', 'a', 'm']) {
-      const db = Items && Items.dbs ? Items.dbs[k] : (k === 'w' ? WEAPONS : k === 'a' ? ARMORS : MAGICS);
-      for (const id in (db || {})) if (!d.owned[k].includes(id)) d.owned[k].push(id);
-    }
-    d.hunter = 1; d.scarlett = 1; d.gold = 999999; d.wins = Math.max(d.wins, 90 * 3);
-    if (typeof Loadout !== 'undefined') Loadout.fix();
-    if (typeof Save.put === 'function') Save.put();
-  }
-
-  function ensureDevPanel() {
-    if (document.getElementById('zw-dev-panel')) return;
-
-    const panel = document.createElement('div');
-    panel.id = 'zw-dev-panel';
-    panel.style.cssText = 'position:fixed;right:12px;top:12px;z-index:1000;padding:10px 12px;border:1px solid rgba(255,255,255,.28);background:rgba(15,15,18,.86);border-radius:10px;color:#fff;font:12px/1.3 Arial,sans-serif;backdrop-filter:blur(6px);box-shadow:0 10px 26px rgba(0,0,0,.5);max-width:260px;display:block;';
-
-    const title = document.createElement('div');
-    title.textContent = 'DEV / TEST';
-    title.style.cssText = 'font-weight:700;letter-spacing:1px;color:#8fe6ff;margin-bottom:8px;';
-
-    const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:6px;';
-
-    const actions = [
-      ['Lvl 9', () => { if (ensureSave()) { Save.d.wins = 24; Save.put(); } }],
-      ['Gold 5k', () => { if (ensureSave()) { Save.d.gold = 5000; Save.put(); } }],
-      ['Hunter', () => setBossState('hunter', 1)],
-      ['Scarlett', () => setBossState('scarlett', 1)],
-      ['All gear', unlockEverything],
-      ['Close', () => panel.style.display = 'none']
-    ];
-
-    for (const [label, cb] of actions) {
-      const btn = document.createElement('button');
-      btn.textContent = label;
-      btn.style.cssText = 'padding:6px 8px;border:1px solid rgba(255,255,255,.2);background:#1b1b22;color:#fff;border-radius:6px;cursor:pointer;font:12px Arial,sans-serif;';
-      btn.onclick = cb;
-      wrap.appendChild(btn);
-    }
-
-    panel.appendChild(title);
-    panel.appendChild(wrap);
-    document.body.appendChild(panel);
-  }
-
-  window.__zwDev = {
-    applyUrlBoosts,
-    ensureDevPanel,
-    unlockEverything,
-    setBossState,
-  };
-
-  window.addEventListener('keydown', function (e) {
-    const key = e.key || '';
-    if (key === '`' || key === '~' || key === 'F12') {
-      const panel = document.getElementById('zw-dev-panel');
-      if (panel) { panel.style.display = panel.style.display === 'none' ? 'block' : 'none'; }
-      else ensureDevPanel();
-      e.preventDefault();
-    }
-  });
-
-  if (qs.get('dev') === '1' || qs.get('menu') === '1') ensureDevPanel();
-  applyUrlBoosts();
-})();
 </script>
 </body>
 </html>
