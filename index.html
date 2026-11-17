@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проект 1234 — Главный Дашборд</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #0b0d10;
+            color: #00ffcc;
+            font-family: monospace;
+            padding: 20px;
+            margin: 0;
+        }
+        header {
+            border-bottom: 2px solid #00ffcc;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        h1 {
+            color: #ffffff;
+            font-size: 24px;
+            margin: 0 0 5px 0;
+        }
+        .subtitle {
+            color: #88a0a8;
+            font-size: 14px;
+        }
+        .section-title {
+            color: #ffd700;
+            font-size: 18px;
+            margin: 25px 0 15px 0;
+            border-left: 3px solid #ffd700;
+            padding-left: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+        }
+        .card {
+            background: #151921;
+            border: 1px solid #252d3a;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.2s ease;
+        }
+        .card:hover {
+            border-color: #00ffcc;
+            background: #1c232f;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.1);
+        }
+        .card-type {
+            font-size: 11px;
+            color: #6c8492;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-name {
+            font-size: 16px;
+            color: #ffffff;
+            word-break: break-all;
+            font-weight: bold;
+        }
+        .folder-card {
+            border-color: #4a4010;
+        }
+        .folder-card:hover {
+            border-color: #ffd700;
+        }
+        .folder-card .card-type {
+            color: #ccaa00;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>📁 Проект 1234 — Панель управления</h1>
+        <div class="subtitle">Локальная система навигации по ассетам и скриптам разработки</div>
+    </header>
+
+    <div class="section-title">Внутренние директории</div>
+    <div class="grid">
+        <a href="zw_game/" class="card folder-card">
+            <div class="card-type">Директория игры</div>
+            <div class="card-name">📁 zw_game</div>
+        </a>
+        <a href="ZW_skeleton/" class="card folder-card">
+            <div class="card-type">Скелеты и риггинг</div>
+            <div class="card-name">📁 ZW_skeleton</div>
+        </a>
+    </div>
+
+    <div class="section-title">3D Модели и Анимации (.fbx / .glb)</div>
+    <div class="grid">
+        <a href="Boxing.fbx" class="card" download>
+            <div class="card-type">Анимация • FBX</div>
+            <div class="card-name">Boxing.fbx</div>
+        </a>
+        <a href="Female Standing Pose.fbx" class="card" download>
+            <div class="card-type">Поза • FBX</div>
+            <div class="card-name">Female Standing Pose.fbx</div>
+        </a>
+        <a href="Mma Kick.fbx" class="card" download>
+            <div class="card-type">Анимация • FBX</div>
+            <div class="card-name">Mma Kick.fbx</div>
+        </a>
+        <a href="model-1dc6b9.glb" class="card" download>
+            <div class="card-type3D Модель • GLB</div>
+            <div class="card-name">model-1dc6b9.glb</div>
+        </a>
+        <a href="Running Arc.fbx" class="card" download>
+            <div class="card-type">Анимация • FBX</div>
+            <div class="card-name">Running Arc.fbx</div>
+        </a>
+    </div>
+
+</body>
+</html>

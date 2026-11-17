@@ -1,0 +1,240 @@
+{
+ "buttons": {
+  "idle": "idle",
+  "move_forward": "run",
+  "move_back": "jog",
+  "jump": "jump",
+  "punch": "attack_punch",
+  "elbow": "attack_elbow",
+  "kick": "attack_kick",
+  "sword": "attack_sword",
+  "sword2": "attack_sword2",
+  "slash": "attack_slash",
+  "great_sword": "attack_greatsword",
+  "magic": "cast_magic",
+  "smoking": "smoking",
+  "spin_kick": "attack_spin",
+  "turn_kick": "attack_turnkick",
+  "hit": "hit_uppercut",
+  "die": "die"
+ },
+ "strikes": {
+  "attack_punch": {
+   "clip": "attack_punch",
+   "strike_bone": "LeftHandEnd",
+   "type": "punch/strike",
+   "startup_frames": [
+    12,
+    15
+   ],
+   "active_frames": [
+    15,
+    22
+   ],
+   "recovery_frames": [
+    22,
+    38
+   ],
+   "peak_frame": 18,
+   "reach_cm": 75.4,
+   "reach_over_height": 0.443,
+   "comment": "тайминги вычислены автоматически по движению конечности; правятся в actions.json"
+  },
+  "attack_elbow": {
+   "clip": "attack_elbow",
+   "strike_bone": "RightHandEnd",
+   "type": "punch/strike",
+   "startup_frames": [
+    17,
+    27
+   ],
+   "active_frames": [
+    27,
+    37
+   ],
+   "recovery_frames": [
+    37,
+    68
+   ],
+   "peak_frame": 31,
+   "reach_cm": 39.7,
+   "reach_over_height": 0.234,
+   "comment": "тайминги вычислены автоматически по движению конечности; правятся в actions.json"
+  },
+  "attack_kick": {
+   "clip": "attack_kick",
+   "strike_bone": "RightToeEnd",
+   "type": "kick",
+   "startup_frames": [
+    16,
+    18
+   ],
+   "active_frames": [
+    18,
+    23
+   ],
+   "recovery_frames": [
+    23,
+    48
+   ],
+   "peak_frame": 21,
+   "reach_cm": 116.5,
+   "reach_over_height": 0.685,
+   "comment": "тайминги вычислены автоматически по движению конечности; правятся в actions.json"
+  },
+  "attack_sword": {
+   "clip": "attack_sword",
+   "strike_bone": "RightHandEnd",
+   "type": "punch/strike",
+   "startup_frames": [
+    19,
+    23
+   ],
+   "active_frames": [
+    23,
+    29
+   ],
+   "recovery_frames": [
+    29,
+    52
+   ],
+   "peak_frame": 26,
+   "reach_cm": 84.9,
+   "reach_over_height": 0.5,
+   "comment": "тайминги вычислены автоматически по движению конечности; правятся в actions.json"
+  },
+  "attack_spin": {
+   "clip": "attack_spin",
+   "strike_bone": "LeftToeEnd",
+   "type": "kick",
+   "startup_frames": [
+    0,
+    63
+   ],
+   "active_frames": [
+    63,
+    72
+   ],
+   "recovery_frames": [
+    72,
+    90
+   ],
+   "peak_frame": 64,
+   "reach_cm": 104.2,
+   "reach_over_height": 0.613,
+   "comment": "тайминги вычислены автоматически по движению конечности; правятся в actions.json"
+  },
+  "attack_sword2": {
+   "clip": "attack_sword2",
+   "strike_bone": "RightHandEnd",
+   "type": "punch/strike",
+   "startup_frames": [
+    30,
+    33
+   ],
+   "active_frames": [
+    33,
+    37
+   ],
+   "recovery_frames": [
+    37,
+    70
+   ],
+   "peak_frame": 34,
+   "reach_cm": 72.7,
+   "reach_over_height": 0.428,
+   "comment": "тайминги вычислены автоматически по движению конечности; правятся в actions.json"
+  },
+  "attack_slash": {
+   "clip": "attack_slash",
+   "strike_bone": "RightHandEnd",
+   "type": "punch/strike",
+   "startup_frames": [
+    15,
+    17
+   ],
+   "active_frames": [
+    17,
+    19
+   ],
+   "recovery_frames": [
+    19,
+    45
+   ],
+   "peak_frame": 18,
+   "reach_cm": 84.6,
+   "reach_over_height": 0.497,
+   "comment": "тайминги вычислены автоматически по движению конечности; правятся в actions.json"
+  },
+  "attack_greatsword": {
+   "clip": "attack_greatsword",
+   "strike_bone": "LeftHandEnd",
+   "type": "punch/strike",
+   "startup_frames": [
+    3,
+    18
+   ],
+   "active_frames": [
+    18,
+    23
+   ],
+   "recovery_frames": [
+    23,
+    55
+   ],
+   "peak_frame": 20,
+   "reach_cm": 87.3,
+   "reach_over_height": 0.514,
+   "comment": "тайминги вычислены автоматически по движению конечности; правятся в actions.json"
+  },
+  "cast_magic": {
+   "clip": "cast_magic",
+   "strike_bone": "RightHandEnd",
+   "type": "punch/strike",
+   "startup_frames": [
+    24,
+    34
+   ],
+   "active_frames": [
+    34,
+    52
+   ],
+   "recovery_frames": [
+    52,
+    81
+   ],
+   "peak_frame": 40,
+   "reach_cm": 94.2,
+   "reach_over_height": 0.554,
+   "comment": "тайминги вычислены автоматически по движению конечности; правятся в actions.json"
+  },
+  "attack_turnkick": {
+   "clip": "attack_turnkick",
+   "strike_bone": "RightToeEnd",
+   "type": "kick",
+   "startup_frames": [
+    38,
+    42
+   ],
+   "active_frames": [
+    42,
+    50
+   ],
+   "recovery_frames": [
+    50,
+    83
+   ],
+   "peak_frame": 46,
+   "reach_cm": 104.7,
+   "reach_over_height": 0.616,
+   "comment": "тайминги вычислены автоматически по движению конечности; правятся в actions.json"
+  }
+ },
+ "missing": [
+  "block (защита)",
+  "getup (вставание)",
+  "win (победная поза)",
+  "hit_back (удар в спину)"
+ ],
+ "note": "idle синтезирован (дыхание поверх стойки), остальные — из Mixamo; блока в наборе нет"
+}

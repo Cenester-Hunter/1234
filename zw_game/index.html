@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+<title>Zombie Warrior v6</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; touch-action: none;
+    -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+  body { display: flex; align-items: center; justify-content: center; }
+  canvas { display: block; touch-action: none; background: #000; }
+  #rot { display: none; position: fixed; inset: 0; background: #000; color: #fff; z-index: 9;
+    align-items: center; justify-content: center; text-align: center; font: bold 22px Arial, sans-serif; padding: 24px; }
+  @media (orientation: portrait) { #rot { display: flex; } }
+</style>
+</head>
+<body>
+<canvas id="c" width="1280" height="720"></canvas>
+<div id="rot">Поверни телефон горизонтально ↻</div>
+<div id="errbox" style="position:fixed;left:0;top:0;right:0;z-index:99;background:#300;color:#fff;font:12px monospace;padding:4px;display:none;white-space:pre-wrap;max-height:40vh;overflow:auto"></div>
+<script>
+window.addEventListener('error',function(e){var b=document.getElementById('errbox');if(!b)return;b.style.display='block';b.textContent+=(e.filename||'').split('/').pop()+':'+e.lineno+' '+e.message+'\n';});
+window.addEventListener('unhandledrejection',function(e){var b=document.getElementById('errbox');if(b){b.style.display='block';b.textContent+='promise: '+(e.reason&&e.reason.message||e.reason)+'\n';}});
+</script>
+<script src="js/util.js"></script>
+<script src="js/assets.js"></script>
+<script src="js/sprites.js"></script>
+<script src="js/rig.js"></script>
+<script src="js/items.js"></script>
+<script src="js/anims.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/music_dark.js"></script>
+<script src="js/music.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/data.js"></script>
+<script src="js/fighter.js"></script>
+<script src="js/hero3d.js"></script>
+<script src="js/hero_fighter.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/bg.js"></script>
+<script src="js/render.js"></script>
+<script src="js/post.js"></script>
+<script src="js/input.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/game.js"></script>
+<script>
+// данные 3D-героя грузятся после того, как игра уже показала меню (так большой файл не может оставить экран чёрным)
+window.addEventListener('load',function(){setTimeout(function(){var e=document.createElement('script');e.src='js/hero_data.js';e.onerror=function(){window.HERO_FAIL=1};document.body.appendChild(e);},400);});
+</script>
+</body>
+</html>
