@@ -21,7 +21,7 @@
 <div id="rot">Поверни телефон горизонтально ↻</div>
 <div id="errbox" style="position:fixed;left:0;top:0;right:0;z-index:99;background:#300;color:#fff;font:12px monospace;padding:4px;display:none;white-space:pre-wrap;max-height:40vh;overflow:auto"></div>
 <script>
-window.addEventListener('error',function(e){var b=document.getElementById('errbox');if(!b)return;b.style.display='block';b.textContent+=(e.filename||'').split('/').pop()+':'+e.lineno+' '+e.message+'\n';});
+window.addEventListener('error',function(e){var b=document.getElementById('errbox');if(b){b.style.display='block';b.textContent+=(e.filename||'').split('/').pop()+':'+e.lineno+' '+e.message+'\n';}});
 window.addEventListener('unhandledrejection',function(e){var b=document.getElementById('errbox');if(b){b.style.display='block';b.textContent+='promise: '+(e.reason&&e.reason.message||e.reason)+'\n';}});
 </script>
 <script src="js/util.js"></script>
@@ -45,9 +45,10 @@ window.addEventListener('unhandledrejection',function(e){var b=document.getEleme
 <script src="js/input.js"></script>
 <script src="js/ui.js"></script>
 <script src="js/game.js"></script>
+<script src="js/dev-menu.js"></script>
 <script>
-// данные 3D-героя грузятся после того, как игра уже показала меню (так большой файл не может оставить экран чёрным)
-window.addEventListener('load',function(){setTimeout(function(){var e=document.createElement('script');e.src='js/hero_data.js';e.onerror=function(){window.HERO_FAIL=1};document.body.appendChild(e);},400);});
+// Load the large 3D hero data after the game UI has started rendering.
+window.addEventListener('load',function(){setTimeout(function(){var e=document.createElement('script');e.src='js/hero_data.js';e.onerror=function(){window.HERO_FAIL=1};document.body.appendChild(e);},50);});
 </script>
 </body>
 </html>
